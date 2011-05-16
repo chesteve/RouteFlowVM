@@ -1,0 +1,54 @@
+README
+
+RouteFlow-Slave v0.1.0
+
+-----------------------------------
+
+Copyright (C) 2011 CPqD
+
+Welcome
+
+========
+
+Welcome to the RouteFlow remote virtual routing platform.  This distribution includes all the software you need to run a Linux Virtual Machine containing the Quagga routing engine and the RouteFlow-slave application that will connect to the RouteFlow-Server.
+
+*Note*
+
+Please be aware of Linux, OpenFlow, NOX, Open vSwitch, Quagga and RouteFlow licenses.
+
+
+Running the Virtual Machines containing RouteFlow-Slave and Quagga
+
+=================
+
+NOTE: This instructions are the sames as Step 7 in the RouteFlow INSTALL file (Start VMs)
+
+
+Any virtualization environment can be used to load the VMs with Quagga and RF-Slave.
+You can find a sample VM in the routeflow-vm-0.2.tar.bz2
+
+Uncompress:
+$tar xvjpf routeflow-vm-0.2.tar.bz2
+
+To start a new VM use the start-vm.sh script that accepts two parameters: 1.- An ID to identify the VM, 2.- The number* of interfaces that should be loaded. The VMs are started with one management interface plus the number used on 2. Thus, if you want VM 1 to be started with 25 interfaces* (e.g., 1 for control and 24 to act as data path ports):
+# start-vm <ID> <interfaces>
+
+$ start-vm.sh 1 24
+$ user: root
+$ password: root
+
+*Note the number of interfaces in the Virtual Machine shall be equal + 1 to the number of ports in the OpenFlow,  switch to be controlled,  because the rf-slave uses the VM first  port to communicate with server.
+
+* The script start-vm.sh adds  the virtual machines interfaces to the datapaths of Open vSwitch instances. That’s another reason to init the Open vSwitchs before any virtual machine.
+If you’re not using our sample virtualization environment, you will need to add the interfaces with the Open vSwitch command below:
+
+    sudo ovs-dpctl add-if <datapath_name>  <interface>
+
+For more information about the command read the ovs-dpctl manual.
+
+Inside the VM x, run the RF-Slave located in the /opt/ folder. This module needs three parameters on start, and the correct syntax is as follows:
+$./rfslave <IP> <port number> <interface>
+
+The <port number> parameter must match the routeflowc tcpport parameter, <IP> must be the IP of NOX and <interface> will provide the interface from which qfslave will get the MAC address to use as it's Id.
+
+*In our sample virtualization environment the RF-Slave starts when you init the virtual machine.
