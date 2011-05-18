@@ -39,8 +39,8 @@ $ password: root
 
 *Note the number of interfaces in the Virtual Machine shall be equal + 1 to the number of ports in the OpenFlow,  switch to be controlled,  because the rf-slave uses the VM first  port to communicate with server.
 
-* The script start-vm.sh adds  the virtual machines interfaces to the datapaths of Open vSwitch instances. That’s another reason to init the Open vSwitchs before any virtual machine.
-If you’re not using our sample virtualization environment, you will need to add the interfaces with the Open vSwitch command below:
+* The script start-vm.sh adds  the virtual machines interfaces to the datapaths of Open vSwitch instances. That is another reason to init the Open vSwitchs before any virtual machine.
+If you are not using our sample virtualization environment, you will need to add the interfaces with the Open vSwitch command below:
 
     sudo ovs-dpctl add-if <datapath_name>  <interface>
 
@@ -49,6 +49,6 @@ For more information about the command read the ovs-dpctl manual.
 Inside the VM x, run the RF-Slave located in the /opt/ folder. This module needs three parameters on start, and the correct syntax is as follows:
 $./rfslave <IP> <port number> <interface>
 
-The <port number> parameter must match the routeflowc tcpport parameter, <IP> must be the IP of NOX and <interface> will provide the interface from which qfslave will get the MAC address to use as it's Id.
+The <port number> parameter must match the routeflowc tcpport parameter, <IP> must be the IP of NOX and <interface> will provide the interface from which qfslave will get the MAC address to use as its ID.
 
-*In our sample virtualization environment the RF-Slave starts when you init the virtual machine.
+*In our sample virtualization environment the RF-Slave starts when you initialize the virtual machine.
